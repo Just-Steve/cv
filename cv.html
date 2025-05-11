@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stephen Gichuhi - Junior Developer</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        display: flex;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: #f5f5f5;
+      }
+
+      /* Sidebar with left mint accent */
+      .sidebar {
+        position: relative;
+        width: 30%;
+        max-width: 300px;
+        background: #333;
+        color: #fff;
+        padding: 2rem 1.5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .sidebar::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 6px;
+        height: 100%;
+        background: #8cbeb2;
+      }
+
+      /* Profile upload */
+      .photo-upload {
+        position: relative;
+        width: 130px;
+        height: 130px;
+        margin-bottom: 1.5rem;
+        border-radius: 50%;
+        transition: box-shadow 0.3s;
+      }
+      .photo-upload:hover {
+        box-shadow: 0 0 15px #8cbeb2;
+      }
+      .photo-upload img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #8cbeb2;
+      }
+      .photo-upload input {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        cursor: pointer;
+      }
+
+      /* Sidebar header text */
+      .sidebar h2 {
+        font-size: 1.6rem;
+        margin: 0.5rem 0;
+        letter-spacing: 1px;
+        text-align: center;
+      }
+      .sidebar .contact {
+        font-size: 0.85rem;
+        color: #ddd;
+        text-align: center;
+        line-height: 1.4;
+      }
+      .sidebar .contact span {
+        display: block;
+      }
+
+      /* Sidebar sections */
+      .sidebar .section-info {
+        width: 100%;
+        margin-top: 2rem;
+        padding: 0.8rem;
+        border-radius: 4px;
+        transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+        cursor: pointer;
+      }
+      .sidebar .section-info:hover,
+      .sidebar .section-info:focus-within {
+        background: #444;
+        transform: scale(1.02);
+        box-shadow: 0 4px 12px rgba(0, 182, 166, 0.6);
+      }
+      .sidebar .section-info h3 {
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        border-bottom: 1px solid #555;
+        padding-bottom: 0.5rem;
+        margin-bottom: 0.8rem;
+        color: #8cbeb2;
+      }
+      .sidebar .section-info p,
+      .sidebar .section-info a {
+        font-size: 0.85rem;
+        color: #ddd;
+        line-height: 1.6;
+      }
+      .sidebar .section-info a {
+        color: #8cbeb2;
+        text-decoration: none;
+      }
+
+      /* Main content area */
+      .main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* Header strip */
+      .main-header {
+        background: #8cbeb2;
+        padding: 2.5rem 2rem;
+        position: relative;
+        transition: box-shadow 0.3s;
+      }
+      .main-header:hover {
+        box-shadow: 0 0 20px #8cbeb2;
+      }
+      .main-header h1 {
+        font-size: 2.8rem;
+        color: #333;
+        letter-spacing: 2px;
+      }
+      .main-header p {
+        font-size: 1.1rem;
+        color: #333;
+        margin-top: 0.5rem;
+      }
+      .main-header::after {
+        content: "";
+        display: block;
+        height: 4px;
+        background: #4db6ac;
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+      }
+
+      /* Content sections */
+      .content {
+        padding: 2rem;
+      }
+      .section {
+        background: #fff;
+        border-radius: 10px;
+        padding: 1.8rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s, box-shadow 0.3s;
+        cursor: pointer;
+      }
+      .section:hover,
+      .section:focus-within {
+        transform: scale(1.03);
+        box-shadow: 0 5px 18px rgba(0, 182, 166, 0.6);
+      }
+      .section h2 {
+        font-size: 1.2rem;
+        text-transform: uppercase;
+        margin-bottom: 1rem;
+        color: #333;
+        letter-spacing: 1px;
+      }
+      .skills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+      }
+      .skills ul {
+        flex: 1 1 45%;
+        list-style: disc;
+        margin-left: 1.5rem;
+      }
+      .soft-list {
+        list-style: none;
+        padding-left: 1rem;
+      }
+      .soft-list li::before {
+        content: "✔️";
+        margin-right: 0.5rem;
+      }
+      ul {
+        margin-left: 1.5rem;
+      }
+      a {
+        color: #8cbeb2;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="sidebar">
+      <div class="photo-upload">
+        <img
+          id="profileImg"
+          src="https://via.placeholder.com/130"
+          alt="Profile"
+        />
+        <input type="file" id="photoInput" accept="image/*" />
+      </div>
+      <h2>STEPHEN GICHUHI</h2>
+      <div class="contact">
+        <span>📞 0759 794 221 | 📧 stevegichuhi03@gmail.com</span>
+        <span>📍 Nairobi, Kenya</span>
+      </div>
+
+      <div class="section-info" tabindex="0">
+        <h3>Education</h3>
+        <p>
+          Diploma in Computer Science<br />Zetech University, Nairobi<br />Expected
+          Graduation: December 2025
+        </p>
+        <p>
+          <strong>Key Courses:</strong> Software Engineering, Computer Networks,
+          Database Management, Systems Analysis & Design, Operating Systems
+        </p>
+      </div>
+
+      <div class="section-info" tabindex="0">
+        <h3>Languages</h3>
+        <p>English: Full Professional</p>
+        <p>Swahili: Full Professional</p>
+      </div>
+
+      <div class="section-info" tabindex="0">
+        <h3>Training & Certifications</h3>
+        <p>
+          • Cisco IT Essentials – Cisco Networking Academy<br />• Python for
+          Beginners – Coursera<br />• Web Fullstack – freeCodeCamp/Udemy
+        </p>
+      </div>
+    </div>
+
+    <div class="main">
+      <div class="main-header">
+        <h1>Career Objective</h1>
+        <p>
+          Motivated and detail-oriented Computer Science student at Zetech
+          University, seeking an industrial opportunity to apply theoretical
+          knowledge in practical IT and software development environments.
+          Passionate about full-stack web development, system administration,
+          and computer networks, with a strong desire to contribute to
+          real-world projects and grow professionally.
+        </p>
+      </div>
+
+      <div class="content">
+        <div class="section" tabindex="0">
+          <h2>Technical Skills</h2>
+          <div class="skills">
+            <ul>
+              <li>
+                Web Development: HTML, CSS, JavaScript, React.js, Node.js,
+                Express.js, MongoDB
+              </li>
+              <li>Frontend Styling: Tailwind CSS</li>
+              <li>
+                Backend & APIs: REST API Design, Authentication (JWT), CRUD
+                Operations
+              </li>
+            </ul>
+            <ul>
+              <li>Programming Languages: Python, Java, C++</li>
+              <li>Databases: MongoDB, MySQL</li>
+              <li>Networking: Cisco IT Essentials, TCP/IP, OSI Model</li>
+              <li>System Administration: Basic Linux & Windows Admin</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="section" tabindex="0">
+          <h2>Soft Skills</h2>
+          <ul class="soft-list">
+            <li>Strong Problem-Solving & Analytical Thinking</li>
+            <li>Team Collaboration & Clear Communication</li>
+            <li>Quick Learner & Tech Enthusiast</li>
+            <li>Adaptable to Fast-Changing Tech Environments</li>
+          </ul>
+        </div>
+
+        <div class="section" tabindex="0">
+          <h2>Projects & Experience</h2>
+          <p>
+            <strong>Full-Stack eCommerce Platform</strong><br />Stack: MERN
+            (MongoDB, Express.js, React.js, Node.js), Tailwind CSS
+          </p>
+          <ul>
+            <li>
+              Built an interactive eCommerce web app with user authentication,
+              product catalog, cart, and order features
+            </li>
+            <li>Integrated JWT-based secure login and registration</li>
+            <li>Designed responsive UI with Tailwind CSS</li>
+            <li>Developed backend APIs and connected to MongoDB</li>
+          </ul>
+          <p>
+            <strong>Student Management System</strong><br />Stack: React.js,
+            Node.js, MongoDB
+          </p>
+          <ul>
+            <li>Developed a CRUD system for managing student records</li>
+            <li>Created user-friendly frontend and RESTful backend APIs</li>
+            <li>Implemented MongoDB-based data storage and management</li>
+          </ul>
+          <p>
+            <strong>Personal Portfolio Website</strong><br />Stack: HTML, CSS,
+            JavaScript
+          </p>
+          <ul>
+            <li>Designed and deployed a responsive personal website</li>
+            <li>Showcases projects, skills, and contact information</li>
+          </ul>
+          <p>
+            <strong>Web Developer Intern</strong><br />Self-Employed Web
+            (Remote) May 2024 – Jan 2025
+          </p>
+          <ul>
+            <li>Wrote custom HTML and JavaScript for existing websites</li>
+            <li>
+              Developed user interfaces with modern JavaScript frameworks,
+              HTML5, and CSS3
+            </li>
+            <li>
+              Developed interactive prototypes using HTML, CSS, JavaScript, and
+              jQuery for client presentations
+            </li>
+            <li>Studied user requirements and met project deadlines</li>
+          </ul>
+        </div>
+
+        <div class="section" tabindex="0">
+          <h2>Referee</h2>
+          <p>
+            <strong>Mr. Barack Ouko</strong><br />Lecturer – Dept. of IT, Zetech
+            University<br />📞 0723 376 902
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const input = document.getElementById("photoInput");
+      const img = document.getElementById("profileImg");
+      input.addEventListener("change", () => {
+        const file = input.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = (e) => (img.src = e.target.result);
+          reader.readAsDataURL(file);
+        }
+      });
+    </script>
+  </body>
+</html>
