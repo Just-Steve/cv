@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Internship Application Letter</title>
+    <!-- Include html2pdf.js library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+    <style>
+      :root {
+        --primary: #8cbeb2;
+        --accent: #4db6ac;
+        --dark: #2c3e50;
+        --light-bg: #fafafa;
+        --text: #333;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f4f4f4;
+        color: var(--text);
+        line-height: 1.6;
+      }
+      .container {
+        max-width: 900px;
+        margin: 40px auto;
+        background: #fff;
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 0 25px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease-in-out;
+        position: relative;
+      }
+      .container:hover {
+        transform: translateY(-3px);
+      }
+      h1 {
+        font-size: 2rem;
+        color: var(--dark);
+        margin-bottom: 20px;
+        border-bottom: 2px solid var(--primary);
+        padding-bottom: 10px;
+        text-align: center;
+      }
+      .download-btn {
+        position: absolute;
+        top: 30px;
+        right: 30px;
+        background: var(--accent);
+        color: #fff;
+        border: none;
+        padding: 0.6rem 1rem;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        transition: background 0.3s, transform 0.3s;
+      }
+      .download-btn:hover {
+        background: var(--primary);
+        transform: scale(1.05);
+      }
+      .section {
+        margin-bottom: 20px;
+        padding: 15px;
+        border-radius: 8px;
+        transition: box-shadow 0.3s, transform 0.3s;
+        background-color: #fff;
+        border-left: 4px solid var(--primary);
+      }
+      .section:hover {
+        background-color: var(--light-bg);
+        box-shadow: 0 0 15px rgba(140, 190, 178, 0.5);
+        transform: translateX(4px);
+      }
+      .section p {
+        margin-bottom: 12px;
+      }
+      .highlight {
+        color: var(--primary);
+        font-weight: bold;
+      }
+      .contact-info {
+        margin-top: 20px;
+      }
+      .contact-info a {
+        color: #005a87;
+        text-decoration: none;
+        font-weight: bold;
+        transition: color 0.3s ease;
+      }
+      .contact-info a:hover {
+        color: #00a2c7;
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container" id="letter">
+      <button class="download-btn" id="downloadBtn">Download PDF</button>
+      <h1>Application for Industrial Attachment</h1>
+
+      <div class="section">
+        <p>Dear Hiring Manager,</p>
+
+        <p>
+          I am writing to express my interest in an industrial attachment opportunity
+          at your esteemed organization. My name is <span class="highlight">Stephen Gichuhi</span>, a
+          passionate and dedicated student pursuing a Diploma in Computer Science at
+          Zetech University, Nairobi, with an expected graduation date of December 2025.
+        </p>
+
+        <p>
+          Throughout my academic journey, I have gained a solid foundation in key areas
+          such as Software Engineering, Computer Networks, Database Management,
+          Operating Systems, and Systems Analysis and Design. My coursework has been
+          complemented by practical experience in building web applications using HTML,
+          CSS, JavaScript, React.js, Node.js, Express.js, and MongoDB. I am also
+          proficient in Tailwind CSS for frontend design and have a working knowledge of
+          RESTful API development and authentication mechanisms using JWT.
+        </p>
+
+        <p>
+          In addition to my technical skills, I have completed several training programs
+          including Cisco IT Essentials from Cisco Networking Academy, Python for
+          Beginners via Coursera, and a Web Fullstack Development course through
+          freeCodeCamp and Udemy. These experiences have equipped me with not only
+          practical coding skills but also the ability to work collaboratively,
+          communicate effectively, and adapt to new technologies.
+        </p>
+
+        <p>
+          I am eager to apply my knowledge in a real-world setting and gain hands-on
+          experience in the tech industry. An attachment at your organization would
+          provide a valuable opportunity for me to learn from experienced professionals
+          and contribute meaningfully to your projects. I am especially excited about the
+          possibility of working in environments involving full-stack development and
+          system support.
+        </p>
+
+        <p>
+          I am confident that my academic background, technical training, and passion for
+          technology make me a suitable candidate for an industrial attachment. I would
+          be grateful for the opportunity to discuss how my skills and enthusiasm align
+          with your team's goals.
+        </p>
+
+        <p>
+          Thank you for considering my application. I look forward to the possibility of
+          contributing to your organization.
+        </p>
+
+        <div class="contact-info">
+          Sincerely,<br />
+          Stephen Gichuhi<br />
+          📞 0759 794 221<br />
+          📧 <a href="mailto:stevegichuhi03@gmail.com">stevegichuhi03@gmail.com</a><br />
+          📍 Nairobi, Kenya
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.getElementById('downloadBtn').addEventListener('click', function() {
+        const element = document.getElementById('letter');
+        const options = {
+          margin:       0.5,
+          filename:     'Stephen_Gichuhi_Internship_Letter.pdf',
+          image:        { type: 'jpeg', quality: 0.98 },
+          html2canvas:  { scale: 2 },
+          jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+        };
+        html2pdf().set(options).from(element).save();
+      });
+    </script>
+  </body>
+</html>
