@@ -5,28 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Stephen Gichuhi - Junior Developer</title>
     <style>
+      :root {
+        --primary: #333;
+        --accent: #8cbeb2;
+        --accent-dark: #4db6ac;
+        --text-light: #ddd;
+        --shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        --shadow-hover: 0 5px 18px rgba(0, 182, 166, 0.6);
+      }
+      
       * {
         box-sizing: border-box;
         margin: 0;
         padding: 0;
       }
+      
       body {
         display: flex;
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
         background: #f5f5f5;
+        min-height: 100vh;
       }
 
       .sidebar {
         position: relative;
         width: 30%;
         max-width: 300px;
-        background: #333;
+        background: var(--primary);
         color: #fff;
         padding: 2rem 1.5rem;
         display: flex;
         flex-direction: column;
         align-items: center;
       }
+      
       .sidebar::before {
         content: "";
         position: absolute;
@@ -34,10 +46,10 @@
         top: 0;
         width: 6px;
         height: 100%;
-        background: #8cbeb2;
+        background: var(--accent);
       }
 
-      .photo-upload {
+      .photo-container {
         position: relative;
         width: 130px;
         height: 130px;
@@ -45,17 +57,20 @@
         border-radius: 50%;
         transition: box-shadow 0.3s;
       }
-      .photo-upload:hover {
-        box-shadow: 0 0 15px #8cbeb2;
+      
+      .photo-container:hover {
+        box-shadow: 0 0 15px var(--accent);
       }
-      .photo-upload img {
+      
+      .photo-container img {
         width: 100%;
         height: 100%;
         border-radius: 50%;
         object-fit: cover;
-        border: 2px solid #8cbeb2;
+        border: 2px solid var(--accent);
       }
-      .photo-upload input {
+      
+      .photo-upload {
         position: absolute;
         top: 0;
         left: 0;
@@ -63,6 +78,45 @@
         height: 100%;
         opacity: 0;
         cursor: pointer;
+        z-index: 10;
+      }
+      
+      .photo-label {
+        position: absolute;
+        bottom: -5px;
+        right: -5px;
+        background: var(--accent);
+        color: #fff;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: var(--shadow);
+      }
+      
+      .download-btn {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: var(--accent);
+        color: #fff;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: var(--shadow);
+        transition: background 0.3s, transform 0.3s;
+        z-index: 100;
+      }
+      
+      .download-btn:hover {
+        background: var(--accent-dark);
+        transform: scale(1.05);
       }
 
       .sidebar h2 {
@@ -71,55 +125,90 @@
         letter-spacing: 1px;
         text-align: center;
       }
+      
       .sidebar .contact {
         font-size: 0.85rem;
-        color: #ddd;
+        color: var(--text-light);
         text-align: center;
         line-height: 1.4;
+        margin-bottom: 1rem;
       }
+      
       .sidebar .contact span {
         display: block;
+        margin-bottom: 0.25rem;
       }
+      
       .sidebar .contact a.email {
-        color: #ADD8E6; 
+        color: #add8e6;
         text-decoration: none;
+        transition: color 0.3s;
       }
+      
       .sidebar .contact a.email:hover {
-        color: #0000FF; 
+        color: #8cbeb2;
+        text-decoration: underline;
+      }
+
+      .social-links {
+        display: flex;
+        gap: 1rem;
+        margin: 0.5rem 0 1rem;
+      }
+      
+      .social-links a {
+        color: var(--text-light);
+        font-size: 1.2rem;
+        transition: color 0.3s, transform 0.3s;
+      }
+      
+      .social-links a:hover {
+        color: var(--accent);
+        transform: scale(1.2);
       }
 
       /* Sidebar sections */
       .sidebar .section-info {
         width: 100%;
-        margin-top: 2rem;
-        padding: 0.8rem;
+        margin-top: 1.5rem;
+        padding: 1rem;
         border-radius: 4px;
         transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
         cursor: pointer;
       }
+      
       .sidebar .section-info:hover,
       .sidebar .section-info:focus-within {
         background: #444;
         transform: scale(1.02);
-        box-shadow: 0 4px 12px rgba(0, 182, 166, 0.6);
+        box-shadow: 0 4px 12px rgba(0, 182, 166, 0.2);
       }
+      
       .sidebar .section-info h3 {
         font-size: 0.9rem;
         text-transform: uppercase;
         border-bottom: 1px solid #555;
         padding-bottom: 0.5rem;
         margin-bottom: 0.8rem;
-        color: #8cbeb2;
+        color: var(--accent);
+        letter-spacing: 0.5px;
       }
+      
       .sidebar .section-info p,
       .sidebar .section-info a {
         font-size: 0.85rem;
-        color: #ddd;
+        color: var(--text-light);
         line-height: 1.6;
       }
+      
       .sidebar .section-info a {
-        color: #8cbeb2;
+        color: var(--accent);
         text-decoration: none;
+        transition: color 0.3s;
+      }
+      
+      .sidebar .section-info a:hover {
+        text-decoration: underline;
       }
 
       /* Main content area */
@@ -131,92 +220,268 @@
 
       /* Header strip */
       .main-header {
-        background: #8cbeb2;
+        background: var(--accent);
         padding: 2.5rem 2rem;
         position: relative;
         transition: box-shadow 0.3s;
       }
+      
       .main-header:hover {
-        box-shadow: 0 0 20px #8cbeb2;
+        box-shadow: 0 0 20px var(--accent);
       }
+      
       .main-header h1 {
         font-size: 2.8rem;
         color: #333;
         letter-spacing: 2px;
       }
+      
       .main-header p {
         font-size: 1.1rem;
         color: #333;
         margin-top: 0.5rem;
+        line-height: 1.6;
+        max-width: 800px;
       }
+      
       .main-header::after {
         content: "";
         display: block;
         height: 4px;
-        background: #4db6ac;
+        background: var(--accent-dark);
         width: 100%;
         position: absolute;
         bottom: 0;
         left: 0;
       }
-
-      /* Content sections */
+     
       .content {
         padding: 2rem;
       }
+      
       .section {
         background: #fff;
         border-radius: 10px;
         padding: 1.8rem;
         margin-bottom: 2rem;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        box-shadow: var(--shadow);
         transition: transform 0.3s, box-shadow 0.3s;
         cursor: pointer;
       }
+      
       .section:hover,
       .section:focus-within {
-        transform: scale(1.03);
-        box-shadow: 0 5px 18px rgba(0, 182, 166, 0.6);
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-hover);
       }
+      
       .section h2 {
         font-size: 1.2rem;
         text-transform: uppercase;
-        margin-bottom: 1rem;
+        margin-bottom: 1.5rem;
         color: #333;
         letter-spacing: 1px;
+        position: relative;
+        padding-bottom: 0.5rem;
       }
+      
+      .section h2::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 50px;
+        height: 3px;
+        background: var(--accent);
+      }
+      
       .skills {
         display: flex;
         flex-wrap: wrap;
         gap: 2rem;
       }
+      
       .skills ul {
         flex: 1 1 45%;
-        list-style: disc;
-        margin-left: 1.5rem;
+        list-style: none;
+        padding: 0;
       }
+      
+      .skills ul li {
+        margin-bottom: 1.2rem;
+        position: relative;
+      }
+      
+      .skill-name {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 0.3rem;
+      }
+      
+      .skill-name span:last-child {
+        color: var(--accent-dark);
+        font-weight: bold;
+      }
+      
+      .skill-bar {
+        height: 8px;
+        background: #e0e0e0;
+        border-radius: 4px;
+        overflow: hidden;
+      }
+      
+      .skill-progress {
+        height: 100%;
+        background: var(--accent);
+        border-radius: 4px;
+        transition: width 1s ease-in-out;
+      }
+      
       .soft-list {
         list-style: none;
         padding-left: 1rem;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1rem;
       }
+      
+      .soft-list li {
+        position: relative;
+        padding-left: 1.5rem;
+        font-size: 0.95rem;
+        margin-bottom: 0.8rem;
+      }
+      
       .soft-list li::before {
         content: "✔️";
-        margin-right: 0.5rem;
+        position: absolute;
+        left: 0;
+        color: var(--accent);
       }
-      ul {
+      
+      .project {
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px dashed #ddd;
+      }
+      
+      .project:last-child {
+        border-bottom: none;
+      }
+      
+      .project-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 0.8rem;
+      }
+      
+      .project-title {
+        font-weight: bold;
+        font-size: 1.1rem;
+        color: #333;
+      }
+      
+      .project-stack {
+        color: #777;
+        font-size: 0.85rem;
+        margin-bottom: 0.8rem;
+      }
+      
+      .project-description {
+        margin-bottom: 0.8rem;
+      }
+      
+      .project ul {
+        list-style: disc;
         margin-left: 1.5rem;
+        margin-bottom: 0.8rem;
       }
-      a {
-        color: #8cbeb2;
+      
+      .project ul li {
+        margin-bottom: 0.5rem;
+        line-height: 1.5;
+      }
+      
+      .project-links {
+        display: flex;
+        gap: 1rem;
+      }
+      
+      .project-links a {
+        color: var(--accent);
         text-decoration: none;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
       }
+      
+      .project-links a:hover {
+        text-decoration: underline;
+      }
+      
+      .fade-in {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeIn 0.8s forwards;
+      }
+      
+      @keyframes fadeIn {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      
+      .referee {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 2rem;
+      }
+      
+      .referee-card {
+        background: #f9f9f9;
+        border-radius: 8px;
+        padding: 1.5rem;
+        border-left: 4px solid var(--accent);
+        box-shadow: var(--shadow);
+        transition: transform 0.3s;
+      }
+      
+      .referee-card:hover {
+        transform: translateY(-5px);
+      }
+      
+      .referee-name {
+        font-weight: bold;
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+      }
+      
+      .referee-position {
+        color: #777;
+        font-size: 0.9rem;
+        margin-bottom: 0.8rem;
+      }
+      
+      .referee-contact {
+        display: flex;
+        gap: 1rem;
+        font-size: 0.9rem;
+      }
+      
       @media (max-width: 992px) {
         .sidebar {
           width: 35%;
           min-width: 220px;
         }
+        
         .main-header h1 {
           font-size: 2.4rem;
+        }
+        
+        .content {
+          padding: 1.5rem;
         }
       }
 
@@ -228,16 +493,20 @@
         .sidebar {
           width: 100%;
           max-width: none;
-          flex-direction: row;
-          flex-wrap: wrap;
-          justify-content: center;
-          padding: 1rem;
+          padding: 1.5rem;
           text-align: center;
         }
+        
+        .sidebar::before {
+          width: 100%;
+          height: 6px;
+          top: 0;
+          left: 0;
+        }
 
-        .photo-upload {
-          width: 100px;
-          height: 100px;
+        .photo-container {
+          width: 120px;
+          height: 120px;
           margin-bottom: 1rem;
         }
 
@@ -289,32 +558,76 @@
 
         .skills ul {
           flex: 1 1 100%;
-          margin-left: 1rem;
+        }
+        
+        .soft-list {
+          grid-template-columns: 1fr;
+        }
+      }
+      
+      @media print {
+        .download-btn {
+          display: none;
+        }
+        
+        body {
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+        
+        .sidebar, .main-header, .section {
+          box-shadow: none !important;
+        }
+        
+        .section:hover {
+          transform: none !important;
         }
       }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   </head>
-  <body>
+  <body id="resume">
+    <button class="download-btn" aria-label="Download PDF" id="downloadBtn">
+      <i class="fas fa-download"></i> Download CV
+    </button>
+
     <div class="sidebar">
-      <div class="photo-upload">
-        <img id="profileImg" src="./Untitled.jpeg" alt="Profile" />
-        <input type="file" id="photoInput" accept="image/*" />
+      <div class="photo-container">
+        <img id="profileImg" src="Untitled.jpeg" alt="Stephen Gichuhi" />
+        <input type="file" id="photoInput" accept="image/*" class="photo-upload" />
+        <label for="photoInput" class="photo-label">
+          <i class="fas fa-camera"></i>
+        </label>
       </div>
+      
       <h2>STEPHEN GICHUHI</h2>
       <div class="contact">
-        <span>📞 0759 794 221 | 
+        <span>
+          <i class="fas fa-phone"></i> 0759 794 221
+        </span>
+        <span>
           <a href="mailto:stevegichuhi03@gmail.com" class="email">
-            📧 stevegichuhi03@gmail.com
+            <i class="fas fa-envelope"></i> stevegichuhi03@gmail.com
           </a>
         </span>
-        <span>📍 Nairobi, Kenya</span>
+        <span>
+          <i class="fas fa-map-marker-alt"></i> Nairobi, Kenya
+        </span>
+      </div>
+      
+      <div class="social-links">
+        <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
+        <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
       </div>
 
       <div class="section-info" tabindex="0">
-        <h3>Education</h3>
+        <h3><i class="fas fa-graduation-cap"></i> Education</h3>
         <p>
-          Diploma in Computer Science<br />Zetech University, Nairobi<br />Expected
-          Graduation: December 2025
+          <strong>Diploma in Computer Science</strong><br />
+          Zetech University, Nairobi<br />
+          Expected Graduation: December 2025
         </p>
         <p>
           <strong>Key Courses:</strong> Software Engineering, Computer Networks,
@@ -323,16 +636,17 @@
       </div>
 
       <div class="section-info" tabindex="0">
-        <h3>Languages</h3>
+        <h3><i class="fas fa-language"></i> Languages</h3>
         <p>English: Full Professional</p>
         <p>Swahili: Full Professional</p>
       </div>
 
       <div class="section-info" tabindex="0">
-        <h3>Training & Certifications</h3>
+        <h3><i class="fas fa-certificate"></i> Certifications</h3>
         <p>
-          • Cisco IT Essentials – Cisco Networking Academy<br />• Python for
-          Beginners – Coursera<br />• Web Fullstack – freeCodeCamp/Udemy
+          • Cisco IT Essentials – Cisco Networking Academy<br />
+          • Python for Beginners – Coursera<br />
+          • Web Fullstack – freeCodeCamp/Udemy
         </p>
       </div>
     </div>
@@ -351,135 +665,239 @@
       </div>
 
       <div class="content">
-        <div class="section" tabindex="0">
+        <div class="section fade-in" tabindex="0">
           <h2>Technical Skills</h2>
           <div class="skills">
             <ul>
               <li>
-                Web Development: HTML, CSS, JavaScript, React.js, Node.js,
-                Express.js, MongoDB
-                <div style="margin-top: .5rem; background: #e0e0e0; border-radius: 4px;">
-                  <div style="width: 85%; background: #4caf50; height: 8px; border-radius: 4px;"></div>
+                <div class="skill-name">
+                  <span>Web Development (HTML, CSS, JS, React, Node)</span>
+                  <span>85%</span>
                 </div>
-              </li>
-              <li>Frontend Styling: Tailwind CSS
-                <div style="margin-top: .5rem; background: #e0e0e0; border-radius: 4px;">
-                  <div style="width: 75%; background: #4caf50; height: 8px; border-radius: 4px;"></div>
+                <div class="skill-bar">
+                  <div class="skill-progress" style="width: 85%"></div>
                 </div>
               </li>
               <li>
-                Backend & APIs: REST API Design, Authentication (JWT), CRUD
-                Operations
-                <div style="margin-top: .5rem; background: #e0e0e0; border-radius: 4px;">
-                  <div style="width: 80%; background: #4caf50; height: 8px; border-radius: 4px;"></div>
+                <div class="skill-name">
+                  <span>Frontend Styling (Tailwind CSS)</span>
+                  <span>75%</span>
+                </div>
+                <div class="skill-bar">
+                  <div class="skill-progress" style="width: 75%"></div>
+                </div>
+              </li>
+              <li>
+                <div class="skill-name">
+                  <span>Backend & APIs (REST, JWT, CRUD)</span>
+                  <span>80%</span>
+                </div>
+                <div class="skill-bar">
+                  <div class="skill-progress" style="width: 80%"></div>
+                </div>
+              </li>
+              <li>
+                <div class="skill-name">
+                  <span>Version Control (Git)</span>
+                  <span>70%</span>
+                </div>
+                <div class="skill-bar">
+                  <div class="skill-progress" style="width: 70%"></div>
                 </div>
               </li>
             </ul>
             <ul>
-              <li>Programming Languages: Python, Java, C++
-                <div style="margin-top: .5rem; background: #e0e0e0; border-radius: 4px;">
-                  <div style="width: 70%; background: #4caf50; height: 8px; border-radius: 4px;"></div>
+              <li>
+                <div class="skill-name">
+                  <span>Programming Languages (Python, Java, C++)</span>
+                  <span>70%</span>
+                </div>
+                <div class="skill-bar">
+                  <div class="skill-progress" style="width: 70%"></div>
                 </div>
               </li>
-              <li>Databases: MongoDB, MySQL
-                <div style="margin-top: .5rem; background: #e0e0e0; border-radius: 4px;">
-                  <div style="width: 65%; background: #4caf50; height: 8px; border-radius: 4px;"></div>
+              <li>
+                <div class="skill-name">
+                  <span>Databases (MongoDB, MySQL)</span>
+                  <span>65%</span>
+                </div>
+                <div class="skill-bar">
+                  <div class="skill-progress" style="width: 65%"></div>
                 </div>
               </li>
-              <li>Networking: Cisco IT Essentials, TCP/IP, OSI Model
-                <div style="margin-top: .5rem; background: #e0e0e0; border-radius: 4px;">
-                  <div style="width: 60%; background: #4caf50; height: 8px; border-radius: 4px;"></div>
+              <li>
+                <div class="skill-name">
+                  <span>Networking (Cisco, TCP/IP, OSI Model)</span>
+                  <span>60%</span>
+                </div>
+                <div class="skill-bar">
+                  <div class="skill-progress" style="width: 60%"></div>
                 </div>
               </li>
-              <li>System Administration: Basic Linux & Windows Admin
-                <div style="margin-top: .5rem; background: #e0e0e0; border-radius: 4px;">
-                  <div style="width: 55%; background: #4caf50; height: 8px; border-radius: 4px;"></div>
+              <li>
+                <div class="skill-name">
+                  <span>System Administration (Linux & Windows)</span>
+                  <span>55%</span>
+                </div>
+                <div class="skill-bar">
+                  <div class="skill-progress" style="width: 55%"></div>
                 </div>
               </li>
             </ul>
           </div>
         </div>
 
-        <div class="section" tabindex="0">
+        <div class="section fade-in" tabindex="0">
           <h2>Soft Skills</h2>
           <ul class="soft-list">
             <li>Strong Problem-Solving & Analytical Thinking</li>
             <li>Team Collaboration & Clear Communication</li>
             <li>Quick Learner & Tech Enthusiast</li>
             <li>Adaptable to Fast-Changing Tech Environments</li>
+            <li>Attention to Detail</li>
+            <li>Time Management</li>
+            <li>Critical Thinking</li>
+            <li>Creative Problem-Solving</li>
           </ul>
         </div>
 
-        <div class="section" tabindex="0">
+        <div class="section fade-in" tabindex="0">
           <h2>Projects & Experience</h2>
-          <p>
-            <strong>Full-Stack eCommerce Platform</strong><br />Stack: MERN
-            (MongoDB, Express.js, React.js, Node.js), Tailwind CSS
-          </p>
-          <ul>
-            <li>
-              Built an interactive eCommerce web app with user authentication,
-              product catalog, cart, and order features
-            </li>
-            <li>Integrated JWT-based secure login and registration</li>
-            <li>Designed responsive UI with Tailwind CSS</li>
-            <li>Developed backend APIs and connected to MongoDB</li>
-          </ul>
-          <p>
-            <strong>Student Management System</strong><br />Stack: React.js,
-            Node.js, MongoDB
-          </p>
-          <ul>
-            <li>Developed a CRUD system for managing student records</li>
-            <li>Created user-friendly frontend and RESTful backend APIs</li>
-            <li>Implemented MongoDB-based data storage and management</li>
-          </ul>
-          <p>
-            <strong>Personal Portfolio Website</strong><br />Stack: HTML, CSS,
-            JavaScript
-          </p>
-          <ul>
-            <li>Designed and deployed a responsive personal website</li>
-            <li>Showcases projects, skills, and contact information</li>
-          </ul>
-          <p>
-            <strong>Web Developer Intern</strong><br />Self-Employed Web
-            (Remote) May 2024 – Jan 2025
-          </p>
-          <ul>
-            <li>Wrote custom HTML and JavaScript for existing websites</li>
-            <li>
-              Developed user interfaces with modern JavaScript frameworks,
-              HTML5, and CSS3
-            </li>
-            <li>
-              Developed interactive prototypes using HTML, CSS, JavaScript, and
-              jQuery for client presentations
-            </li>
-            <li>Studied user requirements and met project deadlines</li>
-          </ul>
+          
+          <div class="project">
+            <div class="project-header">
+              <span class="project-title">Full-Stack eCommerce Platform</span>
+            </div>
+            <div class="project-stack">
+              <i class="fas fa-code"></i> MERN Stack (MongoDB, Express.js, React.js, Node.js), Tailwind CSS
+            </div>
+            <ul>
+              <li>Built an interactive eCommerce web app with user authentication, product catalog, cart, and order features</li>
+              <li>Integrated JWT-based secure login and registration system with role-based access control</li>
+              <li>Designed responsive UI with Tailwind CSS for optimal mobile and desktop experience</li>
+              <li>Developed RESTful backend APIs and connected to MongoDB Atlas cloud database</li>
+            </ul>
+            <div class="project-links">
+              <a href="#"><i class="fab fa-github"></i> GitHub</a>
+              <a href="#"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+            </div>
+          </div>
+          
+          <div class="project">
+            <div class="project-header">
+              <span class="project-title">Student Management System</span>
+            </div>
+            <div class="project-stack">
+              <i class="fas fa-code"></i> React.js, Node.js, MongoDB
+            </div>
+            <ul>
+              <li>Developed a comprehensive CRUD system for managing student records</li>
+              <li>Created user-friendly frontend with React and implemented RESTful backend APIs</li>
+              <li>Implemented MongoDB-based data storage with efficient querying and indexing</li>
+              <li>Added search and filter functionality for quick access to student information</li>
+            </ul>
+            <div class="project-links">
+              <a href="#"><i class="fab fa-github"></i> GitHub</a>
+            </div>
+          </div>
+          
+          <div class="project">
+            <div class="project-header">
+              <span class="project-title">Personal Portfolio Website</span>
+            </div>
+            <div class="project-stack">
+              <i class="fas fa-code"></i> HTML, CSS, JavaScript
+            </div>
+            <ul>
+              <li>Designed and deployed a responsive personal website showcasing projects and skills</li>
+              <li>Implemented modern CSS animations and transitions for enhanced user experience</li>
+              <li>Optimized for performance and accessibility across multiple devices</li>
+            </ul>
+            <div class="project-links">
+              <a href="#"><i class="fab fa-github"></i> GitHub</a>
+              <a href="#"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+            </div>
+          </div>
+          
+          <div class="project">
+            <div class="project-header">
+              <span class="project-title">Web Developer Intern</span>
+            </div>
+            <div class="project-stack">
+              <i class="fas fa-building"></i> Self-Employed (Remote) | <i class="fas fa-calendar"></i> May 2024 – Jan 2025
+            </div>
+            <ul>
+              <li>Wrote custom HTML, CSS, and JavaScript for client websites</li>
+              <li>Developed responsive user interfaces with modern JavaScript frameworks, HTML5, and CSS3</li>
+              <li>Created interactive prototypes for client presentations and feedback</li>
+              <li>Analyzed user requirements and consistently met project deadlines</li>
+            </ul>
+          </div>
         </div>
 
-        <div class="section" tabindex="0">
-          <h2>Referee</h2>
-          <p>
-            <strong>Mr. Barack Ouko</strong><br />Lecturer – Dept. of IT, Zetech
-            University<br />📞 0723 376 902
-          </p>
+        <div class="section fade-in" tabindex="0">
+          <h2>References</h2>
+          <div class="referee">
+            <div class="referee-card">
+              <div class="referee-name">Mr. Barack Ouko</div>
+              <div class="referee-position">Lecturer – Department of IT, Zetech University</div>
+              <div class="referee-contact">
+                <span><i class="fas fa-phone"></i> 0723 376 902</span>
+              </div>
+            </div>
+            
+            <!-- Ymore references here -->
+          </div>
         </div>
       </div>
     </div>
 
     <script>
-      const input = document.getElementById("photoInput");
-      const img = document.getElementById("profileImg");
-      input.addEventListener("change", () => {
-        const file = input.files[0];
+      const photoInput = document.getElementById("photoInput");
+      const profileImg = document.getElementById("profileImg");
+      
+      photoInput.addEventListener("change", () => {
+        const file = photoInput.files[0];
         if (file) {
           const reader = new FileReader();
-          reader.onload = (e) => (img.src = e.target.result);
+          reader.onload = (e) => {
+            profileImg.src = e.target.result;
+          };
           reader.readAsDataURL(file);
         }
+      });
+      
+      document.getElementById('downloadBtn').addEventListener('click', function() {
+        const element = document.getElementById('resume');
+        const opt = {
+          margin: [0.5, 0.3],
+          filename: 'Stephen_Gichuhi_CV.pdf',
+          image: { type: 'jpeg', quality: 0.98 },
+          html2canvas: { scale: 2, useCORS: true, logging: true },
+          jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+        };
+        
+        this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating PDF...';
+        
+        html2pdf().set(opt).from(element).save().then(() => {
+          this.innerHTML = '<i class="fas fa-download"></i> Download CV';
+        });
+      });
+      
+      document.addEventListener('DOMContentLoaded', function() {
+        const sections = document.querySelectorAll('.section');
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.style.opacity = 1;
+              entry.target.style.transform = 'translateY(0)';
+            }
+          });
+        }, { threshold: 0.1 });
+        
+        sections.forEach(section => {
+          observer.observe(section);
+        });
       });
     </script>
   </body>
